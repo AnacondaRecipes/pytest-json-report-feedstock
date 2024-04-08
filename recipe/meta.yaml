@@ -11,28 +11,41 @@ source:
   sha256: 2dde3c647851a19b5f3700729e8310a6e66efb2077d674f27ddea3d34dc615de
 
 build:
+  skip: True # [py<38]
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
-
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 requirements:
   host:
     - pip
-    - python >=3.6
+    - wheel
+    - python
   run:
     - pytest >=3.8.0
     - pytest-metadata
-    - python >=3.6
+    - python 
 
 test:
   imports:
     - pytest_jsonreport
+  requires:
+    - pip
+  commands:
+    - pip check
+    - pytest ../tests
 
 about:
   home: https://pypi.org/project/pytest-json-report/
   summary: A pytest plugin to report test results as JSON files
+  description: |
+    A pytest plugin to report test results as JSON files
+
+    It can report a summary, test details, captured output, logs, exception tracebacks and more. 
+    Additionally, you can use the available fixtures and hooks to add metadata and customize the report as you like.
   license: MIT
   license_file: LICENSE
+  license_family: MIT
+  doc_url: https://github.com/numirias/pytest-json-report
+  dev_url: https://github.com/numirias/pytest-json-report
 
 extra:
   recipe-maintainers:
