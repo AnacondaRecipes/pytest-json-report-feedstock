@@ -11,6 +11,7 @@ source:
   sha256: 2dde3c647851a19b5f3700729e8310a6e66efb2077d674f27ddea3d34dc615de
 
 build:
+  skip: True # [py<38]
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 requirements:
@@ -30,6 +31,7 @@ test:
     - pip
   commands:
     - pip check
+    - pytest ../tests
 
 about:
   home: https://pypi.org/project/pytest-json-report/
